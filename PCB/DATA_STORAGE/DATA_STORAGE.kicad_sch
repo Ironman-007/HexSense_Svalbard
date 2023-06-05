@@ -1295,7 +1295,7 @@
     (effects (font (size 1.35 1.35)) (justify left bottom))
     (uuid 1155a7bd-c9b8-4201-973d-ac784de17056)
   )
-  (text "ADXL355 Module" (at 16.51 21.59 0)
+  (text "FRAM & SD card" (at 16.51 21.59 0)
     (effects (font (size 3 3) (thickness 0.508) bold) (justify left bottom))
     (uuid 2bcf2398-81f3-4114-ae64-1b97f6217a90)
   )
