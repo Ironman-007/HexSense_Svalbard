@@ -2382,6 +2382,8 @@
     (stroke (width 0.1) (type solid)) (layer "Edge.Cuts") (tstamp e8314017-7be6-4011-9179-37449a29b311))
   (gr_circle (center 132.16 110.496915) (end 133.26 110.496915)
     (stroke (width 0.1) (type solid)) (fill none) (layer "Edge.Cuts") (tstamp f1830a1b-f0cc-47ae-a2c9-679c82032f14))
+  (gr_rect (start 136.16 83.198621) (end 166.16 117.198621)
+    (stroke (width 0.15) (type default)) (fill none) (layer "User.1") (tstamp bb61cdb2-507b-411b-a8ed-04e1748b1e1d))
 
   (via (at 134.16 109.198621) (size 0.6604) (drill 0.3302) (layers "F.Cu" "B.Cu") (free) (net 1) (tstamp 007c1ae8-6fe0-4b61-8868-ec35a5eefe2f))
   (via (at 144.16 105.198621) (size 0.6604) (drill 0.3302) (layers "F.Cu" "B.Cu") (free) (net 1) (tstamp 048fc886-a35b-493f-9c08-955454908afd))
