@@ -5,10 +5,10 @@
 #include "IMU.h"
 #include "ONBOARD_TEMP.h"
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif // __cplusplus
+// #ifdef __cplusplus
+// extern "C"
+// {
+// #endif // __cplusplus
 
 byte * HexSense_byte_temp;
 
@@ -29,15 +29,18 @@ void update(void) {
   TMP112_take_a_measurement();
 
   Time_stamp = millis();
+  if (DEBUG_OUTPUT) DEBUG_info("Time_stamp = ", Time_stamp);
   HexSense_byte_temp = (byte *) &Time_stamp;
   pack_data_into_HexSense_pkg(HexSense_byte_temp, TIME_STAMP_INDEX, TIME_STAMP_INDEX_LEN);
 
   seq_num ++;
   HexSense_byte_temp = (byte *) &seq_num;
+  if (DEBUG_OUTPUT) DEBUG_info("seq_num = ", seq_num);
   pack_data_into_HexSense_pkg(HexSense_byte_temp, SEQ_NUM_INDEX, SEQ_NUM_LEN);
 
   Get_IMU_data();
   HexSense_byte_temp = (byte *) &accx;
+  if (DEBUG_OUTPUT) DEBUG_info("accx = ", accx);
   pack_data_into_HexSense_pkg(HexSense_byte_temp, IMU_DATA_INDEX, FLOAT_SIZE);
   HexSense_byte_temp = (byte *) &accy;
   pack_data_into_HexSense_pkg(HexSense_byte_temp, IMU_DATA_INDEX + FLOAT_SIZE, FLOAT_SIZE);
@@ -52,9 +55,8 @@ void update(void) {
 
   TMP112_get_data();
   HexSense_byte_temp = (byte *) &board_temperature;
+  if (DEBUG_OUTPUT) DEBUG_info("board_temperature = ", board_temperature);
   pack_data_into_HexSense_pkg(HexSense_byte_temp, TMP112_DATA_INDEX, FLOAT_SIZE);
-
-  
 
   /*
     TMP112_take_a_measurement();
@@ -64,6 +66,6 @@ void update(void) {
   */
 }
 
-#ifdef __cplusplus
-}
-#endif
+// #ifdef __cplusplus
+// }
+// #endif

@@ -2,10 +2,10 @@
 
 #include <Arduino.h>
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif // __cplusplus
+// #ifdef __cplusplus
+// extern "C"
+// {
+// #endif // __cplusplus
 
 extern uint8_t seq_num;
 
@@ -23,7 +23,8 @@ extern uint8_t seq_num;
 extern uint8_t HexSense_pkg[PKG_LEN];
 
 extern void pack_data_into_HexSense_pkg(byte * data, int index, int len);
+extern void update(void);
 
-#ifdef __cplusplus
-}
-#endif
+// #ifdef __cplusplus
+// }
+// #endif

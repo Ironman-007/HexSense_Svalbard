@@ -2,10 +2,10 @@
 
 #include "IMU.h"
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif // __cplusplus
+// #ifdef __cplusplus
+// extern "C"
+// {
+// #endif // __cplusplus
 
 float accx  = 0.0;
 float accy  = 0.0;
@@ -13,6 +13,8 @@ float accz  = 0.0;
 float gyrox = 0.0;
 float gyroy = 0.0;
 float gyroz = 0.0;
+
+float _orientation  = 0.0;
 
 Adafruit_MPU6050 mpu;
 sensors_event_t a, g, temp;
@@ -40,6 +42,11 @@ void Get_IMU_data(void) {
   gyroz = g.gyro.z;
 }
 
-#ifdef __cplusplus
+void Get_Orientation(void) {
+  Get_IMU_data();
+  _orientation = 0;
 }
-#endif
+
+// #ifdef __cplusplus
+// }
+// #endif
