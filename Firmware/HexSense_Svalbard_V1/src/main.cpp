@@ -9,6 +9,7 @@
 #include "BR.h"
 #include "DATA.h"
 #include "FRAM.h"
+#include "FLASH.h"
 
 #include "INTERRUPT.h"
 #include "NRF52TimerInterrupt.h"
@@ -44,8 +45,7 @@ void interrupt_setup() {
 int _wait_time = 0;
 
 void setup(void) {
-  if (DEBUG_OUTPUT)
-    Serial_Setup();
+  if (DEBUG_OUTPUT) Serial_Setup();
 
   Pins_init();
   IMU_init();
@@ -73,9 +73,12 @@ void loop() {
   if (timer4Interrupt_5s == true) {
     timer4Interrupt_5s = false;
     update();
+    // Store data in Flash
+    // if Flash is about to be full, move all data to SD card
     Flash_LED_once(PIN_LED1, 50);
   }
 }
+
 
 
 

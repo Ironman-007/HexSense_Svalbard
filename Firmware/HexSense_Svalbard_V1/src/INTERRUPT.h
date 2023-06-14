@@ -2,12 +2,10 @@
 
 #include <Arduino.h>
 
-
-
-#ifdef __cplusplus
-extern "C"
-{
-#endif // __cplusplus
+// #ifdef __cplusplus
+// extern "C"
+// {
+// #endif // __cplusplus
 
 // ===================== interrupt parameters =====================
 #define HW_TIMER_INTERVAL_MS 1
@@ -18,6 +16,6 @@ extern "C"
 extern bool volatile timer4Interrupt_1s;
 extern bool volatile timer4Interrupt_5s;
 
-#ifdef __cplusplus
-}
-#endif
+// #ifdef __cplusplus
+// }
+// #endif
