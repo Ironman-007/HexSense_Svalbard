@@ -7,12 +7,14 @@
 // {
 // #endif // __cplusplus
 
-#define WDI_PIN      2  // watchdog feeding pin
+#define LED_indicator PIN_SERIAL1_TX
 
-#define DELAY_TIME   30 // 30s
+#define WDI_PIN       2  // watchdog feeding pin
+
+#define DELAY_TIME    30 // 30s
 extern int _wait_time;
 
-#define DEBUG_OUTPUT true
+#define DEBUG_OUTPUT  true
 
 extern uint32_t Time_stamp;
 

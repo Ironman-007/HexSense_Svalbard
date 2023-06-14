@@ -52,6 +52,7 @@ void setup(void) {
   TMP112_init();
   interrupt_setup();
   WD_setup(WDI_PIN);
+  fram_setup();
 
   delay(100);
 

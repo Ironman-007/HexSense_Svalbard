@@ -1,7 +1,10 @@
 #pragma once
 
-#include <SPI.h>
-#include "SdFat.h"
-#include "Adafruit_SPIFlash.h"
-// for flashTransport definition
-#include "flash_config.h"
+// #include <SPI.h>
+// #include "SdFat.h"
+// #include "Adafruit_SPIFlash.h"
+// // for flashTransport definition
+// #include "flash_config.h"
+
+// extern Adafruit_SPIFlash flash;
+

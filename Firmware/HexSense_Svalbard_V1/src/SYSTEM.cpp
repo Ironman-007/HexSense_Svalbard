@@ -10,11 +10,11 @@
 int i = 0;
 
 // define pins to use
-#define PINS2USE_CNT 2
+#define PINS2USE_CNT 3
 
-int     PINS2USE[PINS2USE_CNT]            = {PIN_LED1, WDI_PIN};
-uint8_t PINS2USE_MODE[PINS2USE_CNT]       = {OUTPUT, OUTPUT};
-uint8_t PINS2USE_INIT_VALUE[PINS2USE_CNT] = {LOW, LOW};
+int     PINS2USE[PINS2USE_CNT]            = {PIN_LED1, WDI_PIN, PIN_BUTTON1};
+uint8_t PINS2USE_MODE[PINS2USE_CNT]       = {OUTPUT, OUTPUT, OUTPUT};
+uint8_t PINS2USE_INIT_VALUE[PINS2USE_CNT] = {LOW, LOW, LOW};
 
 void Serial_Setup(void) {
   Serial.begin(115200);

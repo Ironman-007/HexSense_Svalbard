@@ -1,4 +1,4 @@
-21903741217327589
+21907113905562271
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -63735,6 +63735,13 @@ ECX-1637
 4
 4
 Mylib
+FZ_SMD_01x06_2.00mm
+
+
+0
+6
+6
+Mylib
 HC49_4HSMX
 
 
@@ -63778,6 +63785,13 @@ KXOB25-05X3F
 2
 Mylib
 KXOB25-14X1F
+
+
+0
+2
+2
+Mylib
+KXOB201K04F-TR
 
 
 0
@@ -83851,6 +83865,153 @@ Bourns rotary encoder, PEC12R, with switch, vertical shaft, https://www.bourns.c
 rotary encoder
 0
 7
+6
+SamacSys_Parts
+1660
+1660
+Connector
+0
+12
+12
+SamacSys_Parts
+3544-2
+3544-2
+Undefined or Miscellaneous
+0
+4
+4
+SamacSys_Parts
+0473340001
+0473340001-4
+Connector
+0
+12
+12
+SamacSys_Parts
+74488540070
+5838
+Inductor
+0
+4
+4
+SamacSys_Parts
+BM06BSRSSTBTLFSN
+BM06B-SRSS-TBT(LF)(SN)-3
+Connector
+0
+8
+8
+SamacSys_Parts
+BM1422AGMV
+1mm x 1mm x 1mm
+Integrated Circuit
+0
+10
+10
+SamacSys_Parts
+KMR231NGLFS
+KMR231NGLFS-1
+Switch
+0
+4
+4
+SamacSys_Parts
+QFN50P300X300X90-17N
+P-VQFN16-0303-0.50-001
+Integrated Circuit
+0
+17
+17
+SamacSys_Parts
+SOIC127P600X175-8N
+FPT-8P-M02
+Integrated Circuit
+0
+8
+8
+SamacSys_Parts
+SOIC127P600X175-14N
+14 SO
+Integrated Circuit
+0
+14
+14
+SamacSys_Parts
+SOIC127P800X203-8N
+CY15B108QN-40SXI
+Integrated Circuit
+0
+8
+8
+SamacSys_Parts
+SOIC127P1030X266-16N
+MB85RQ4MLPF-G-BCERE1
+Integrated Circuit
+0
+16
+16
+SamacSys_Parts
+SON50P300X200X75-9N
+8 pin son
+Integrated Circuit
+0
+9
+9
+SamacSys_Parts
+SOP50P310X90-8N
+DCU (R-PDSO-G8)
+Integrated Circuit
+0
+8
+8
+SamacSys_Parts
+SOP65P640X120-8N
+TSSOP-8
+MOSFET (N-Channel)
+0
+8
+8
+SamacSys_Parts
+SOT65P210X110-5N
+SC70-5
+Integrated Circuit
+0
+5
+5
+SamacSys_Parts
+SOT95P275X135-6N
+SOT-23-6
+Integrated Circuit
+0
+6
+6
+SamacSys_Parts
+SOT96P240X110-3N
+SOT-23_
+MOSFET (P-Channel)
+0
+3
+3
+SamacSys_Parts
+SOTFL50P160X60-3N
+SOT-523
+MOSFET (N-Channel)
+0
+3
+3
+SamacSys_Parts
+SOTFL50P160X60-6N
+DRL0006A
+Integrated Circuit
+0
+6
+6
+SamacSys_Parts
+VEML6030GS15
+VEML6030-GS15-1
+Integrated Circuit
+0
+6
 6
 Sensor
 Aosong_DHT11_5.5x12.0_P2.54mm

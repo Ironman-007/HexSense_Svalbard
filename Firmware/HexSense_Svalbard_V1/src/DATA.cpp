@@ -1,8 +1,7 @@
-#include <Arduino.h>
-
 #include "DATA.h"
 #include "SYSTEM.h"
 #include "IMU.h"
+#include "FRAM.h"
 #include "ONBOARD_TEMP.h"
 
 // #ifdef __cplusplus
@@ -24,7 +23,7 @@ void pack_data_into_HexSense_pkg(byte * data, int index, int len) {
   memcpy(&HexSense_pkg[index], data, len);
 }
 
-void update(void) {
+void pack_a_hexsense_packet(void) {
   // TMP112 data needs ~30ms to converge, so make it start the measurement earlier.
   TMP112_take_a_measurement();
 
@@ -59,11 +58,20 @@ void update(void) {
   pack_data_into_HexSense_pkg(HexSense_byte_temp, TMP112_DATA_INDEX, FLOAT_SIZE);
 
   /*
-    TMP112_take_a_measurement();
     get data from each side;
-    store in FRAM;
-    check capacity of the FRAM, if close to full, store data in SD card
   */
+}
+
+void update(void) {
+  pack_a_hexsense_packet();
+
+  write_a_hexsense_packet_to_fram(FRAM_w_P, HexSense_pkg, PKG_LEN);
+  FRAM_w_P += PKG_LEN;
+
+  if (FRAM_w_P >= FRAM_ADDR_TOP) {
+    // move data to SD card;
+    FRAM_w_P = 0;
+  }
 }
 
 // #ifdef __cplusplus
