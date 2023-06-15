@@ -10,8 +10,9 @@
 extern uint8_t seq_num;
 
 #define FLOAT_SIZE           4
+#define WORD_SIZE            2
 
-#define PKG_LEN              100
+#define PKG_LEN              202
 
 #define TIME_STAMP_INDEX     0
 #define TIME_STAMP_INDEX_LEN 4
@@ -19,6 +20,8 @@ extern uint8_t seq_num;
 #define SEQ_NUM_LEN          1
 #define IMU_DATA_INDEX       5
 #define TMP112_DATA_INDEX    29
+#define AS7341_DATA_INDEX    33
+#define SHT4x_DATA_INDEX     153
 
 extern uint8_t HexSense_pkg[PKG_LEN];
 

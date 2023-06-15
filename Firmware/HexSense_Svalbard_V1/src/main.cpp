@@ -10,6 +10,7 @@
 #include "DATA.h"
 #include "FRAM.h"
 #include "FLASH.h"
+#include "SIDE.h"
 
 #include "INTERRUPT.h"
 #include "NRF52TimerInterrupt.h"
@@ -43,6 +44,7 @@ void interrupt_setup() {
 
 // ================== system parameters ==================
 int _wait_time = 0;
+int _side_num  = 0;
 
 void setup(void) {
   if (DEBUG_OUTPUT) Serial_Setup();
@@ -53,6 +55,12 @@ void setup(void) {
   interrupt_setup();
   WD_setup(WDI_PIN);
   fram_setup();
+  CONN_init();
+
+  for (_side_num = 0; _side_num < SIDE_cnt; _side_num ++) {
+    hexsense_side[_side_num].SIDE_init();
+    delay(10);
+  }
 
   delay(100);
 
