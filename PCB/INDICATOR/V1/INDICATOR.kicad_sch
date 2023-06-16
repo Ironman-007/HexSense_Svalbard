@@ -1535,10 +1535,10 @@
   (symbol (lib_id "SamacSys_Parts:3544-2") (at 194.31 53.34 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid b8e1e153-964b-44f7-bee4-bddd57ac0239)
-    (property "Reference" "U1" (at 204.47 55.88 0)
+    (property "Reference" "U1" (at 203.9112 56.126 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "3544-2" (at 204.47 58.42 0)
+    (property "Value" "3544-2" (at 203.9112 58.174 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "SamacSys_Parts:3544-2" (at 210.82 50.8 0)
@@ -1789,8 +1789,8 @@
     (pin "4" (uuid 30905403-e828-499e-a975-27410c863555))
     (pin "5" (uuid 1f530d46-cdb0-44be-9cbb-50f5497a3b90))
     (pin "6" (uuid a77b4997-d477-4c0a-8201-89b78d2e56d1))
-    (pin "MP" (uuid d8688203-49e8-4259-837e-13b905bba30f))
-    (pin "MP" (uuid d8688203-49e8-4259-837e-13b905bba30f))
+    (pin "MP" (uuid d8688203-49e8-4259-837e-13b905bba310))
+    (pin "MP" (uuid d8688203-49e8-4259-837e-13b905bba310))
     (instances
       (project "INDICATOR"
         (path "/65265907-6721-4f79-b3a8-f708d4e7460b"

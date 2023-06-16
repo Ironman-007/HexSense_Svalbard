@@ -2354,8 +2354,8 @@
     (pin "4" (uuid c3a1abcd-a656-4d1f-a1db-51634146d341))
     (pin "5" (uuid deed65d2-20ff-4dbc-9d0c-c771d7136723))
     (pin "6" (uuid 27089cd0-94da-402f-bede-7a05f855ce67))
-    (pin "MP" (uuid 0b3300c7-7bc2-4852-a464-8aa863ae18f9))
-    (pin "MP" (uuid 0b3300c7-7bc2-4852-a464-8aa863ae18f9))
+    (pin "MP" (uuid 0b3300c7-7bc2-4852-a464-8aa863ae18fd))
+    (pin "MP" (uuid 0b3300c7-7bc2-4852-a464-8aa863ae18fd))
     (instances
       (project "SIDE"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"

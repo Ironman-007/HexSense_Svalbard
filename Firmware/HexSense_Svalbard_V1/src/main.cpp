@@ -54,10 +54,11 @@ void setup(void) {
   TMP112_init();
   interrupt_setup();
   WD_setup(WDI_PIN);
-  fram_setup();
+  // fram_setup();
   CONN_init();
 
   for (_side_num = 0; _side_num < SIDE_cnt; _side_num ++) {
+    hexsense_side[_side_num].SIDE_select();
     hexsense_side[_side_num].SIDE_init();
     delay(10);
   }

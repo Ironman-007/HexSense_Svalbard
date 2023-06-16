@@ -1,4 +1,5 @@
 #include "SIDE.h"
+#include "SYSTEM.h"
 
 TCA9548 MP(0x70);
 
@@ -23,6 +24,9 @@ bool SIDE::SIDE_select(void) {
 
 void SIDE::SIDE_init() {
   this -> as7341.begin();
+  this -> as7341.setATIME(100);
+  this -> as7341.setASTEP(999);
+  this -> as7341.setGain(AS7341_GAIN_256X);
   // this -> veml6030.set_address(0x40);
   // this -> veml6030.begin();
   this -> sht4.begin();
@@ -31,16 +35,17 @@ void SIDE::SIDE_init() {
 }
 
 uint16_t* SIDE::SIDE_get_as7341_result(void) {
-  as7341_result[0] = as7341.getChannel(AS7341_CHANNEL_415nm_F1);
-  as7341_result[1] = as7341.getChannel(AS7341_CHANNEL_445nm_F2);
-  as7341_result[2] = as7341.getChannel(AS7341_CHANNEL_480nm_F3);
-  as7341_result[3] = as7341.getChannel(AS7341_CHANNEL_515nm_F4);
-  as7341_result[4] = as7341.getChannel(AS7341_CHANNEL_555nm_F5);
-  as7341_result[5] = as7341.getChannel(AS7341_CHANNEL_590nm_F6);
-  as7341_result[6] = as7341.getChannel(AS7341_CHANNEL_630nm_F7);
-  as7341_result[7] = as7341.getChannel(AS7341_CHANNEL_680nm_F8);
-  as7341_result[8] = as7341.getChannel(AS7341_CHANNEL_CLEAR);
-  as7341_result[9] = as7341.getChannel(AS7341_CHANNEL_NIR);
+  this -> as7341.readAllChannels();
+  as7341_result[0] = this -> as7341.getChannel(AS7341_CHANNEL_415nm_F1);
+  as7341_result[1] = this -> as7341.getChannel(AS7341_CHANNEL_445nm_F2);
+  as7341_result[2] = this -> as7341.getChannel(AS7341_CHANNEL_480nm_F3);
+  as7341_result[3] = this -> as7341.getChannel(AS7341_CHANNEL_515nm_F4);
+  as7341_result[4] = this -> as7341.getChannel(AS7341_CHANNEL_555nm_F5);
+  as7341_result[5] = this -> as7341.getChannel(AS7341_CHANNEL_590nm_F6);
+  as7341_result[6] = this -> as7341.getChannel(AS7341_CHANNEL_630nm_F7);
+  as7341_result[7] = this -> as7341.getChannel(AS7341_CHANNEL_680nm_F8);
+  as7341_result[8] = this -> as7341.getChannel(AS7341_CHANNEL_CLEAR);
+  as7341_result[9] = this -> as7341.getChannel(AS7341_CHANNEL_NIR);
 
   return as7341_result;
 }
@@ -55,4 +60,5 @@ void SIDE::SIDE_get_sht40_temp_humd(void) {
 //   return veml6030_lux;
 // }
 
-SIDE hexsense_side[SIDE_cnt] = {SIDE(0), SIDE(1), SIDE(2), SIDE(3), SIDE(4), SIDE(5)};
+// SIDE hexsense_side[SIDE_cnt] = {SIDE(0), SIDE(1), SIDE(2), SIDE(3), SIDE(4), SIDE(5)};
+SIDE hexsense_side[SIDE_cnt] = {SIDE(0)};

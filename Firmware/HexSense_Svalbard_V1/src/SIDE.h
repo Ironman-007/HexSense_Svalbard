@@ -7,7 +7,7 @@
 #include "Adafruit_SHT4x.h"
 
 #define AS7341_ch_cnt 10
-#define SIDE_cnt      6
+#define SIDE_cnt      1
 
 class SIDE
 {
