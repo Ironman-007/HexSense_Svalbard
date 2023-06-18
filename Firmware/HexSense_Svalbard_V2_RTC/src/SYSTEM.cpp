@@ -67,6 +67,10 @@ void DEBUG_info(const char * info, float data) {
   Serial.println(data);
 }
 
+uint32_t VBUS_connected(void) {
+  return NRF_POWER->USBREGSTATUS;
+}
+
 // #ifdef __cplusplus
 // }
 // #endif

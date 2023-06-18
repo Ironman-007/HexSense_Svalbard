@@ -18,7 +18,7 @@
 int _wait_time = 0;
 int _side_num  = 0;
 
-void setup(void) {
+void system_init(void) {
   if (DEBUG_OUTPUT) Serial_Setup();
 
   Pins_init();
@@ -49,6 +49,18 @@ void setup(void) {
   // calculate current orientation and choose which resistor to burn;
   // start burning resistor for 10s, and check orientation;
   // If orientation is OK, keep going to loop;
+}
+
+void setup(void) {
+  // If VBUS is conencetd, means it's being chared and should not start working.
+  if (VBUS_connected()) {
+    delay(10);
+  }
+
+  // when the +5V is removed, start working
+  else {
+    system_init();
+  }
 }
 
 void loop() {

@@ -31,6 +31,8 @@ extern void DEBUG_info(const char * info, int data);
 extern void DEBUG_info(const char * info, uint32_t data);
 extern void DEBUG_info(const char * info, float data);
 
+extern uint32_t VBUS_connected(void);
+
 // #ifdef __cplusplus
 // }
 // #endif
