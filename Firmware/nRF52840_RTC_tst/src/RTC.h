@@ -1,10 +1,4 @@
 #include <Arduino.h>
 
-class RTC
-{
-private:
-
-public:
-  RTC(void);
-  int PRESCALER;
-};
+#define LFCLK_START_TASK (1UL)
+#define LFCLK_STOP_TASK  (1UL)
