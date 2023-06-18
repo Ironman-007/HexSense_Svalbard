@@ -34,6 +34,7 @@ void timer_handler_1s() {
 
 void timer_handler_5s() {
   timer4Interrupt_5s = true;
+  digitalToggle(WDI_PIN);
 }
 
 void interrupt_setup() {
@@ -53,7 +54,7 @@ void setup(void) {
   IMU_init();
   TMP112_init();
   interrupt_setup();
-  WD_setup(WDI_PIN);
+  // WD_setup(WDI_PIN);
   // fram_setup();
   CONN_init();
 
@@ -80,6 +81,13 @@ void setup(void) {
 }
 
 void loop() {
+  NRF_POWER->DCDCEN  = 1;
+  NRF_POWER->DCDCEN0 = 1;
+
+  __SEV();
+  __WFE();
+  __WFE();
+
   if (timer4Interrupt_5s == true) {
     timer4Interrupt_5s = false;
     update();
@@ -88,6 +96,9 @@ void loop() {
     Flash_LED_once(PIN_LED1, 50);
   }
 }
+
+
+
 
 
 

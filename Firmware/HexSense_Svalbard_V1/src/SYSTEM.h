@@ -11,10 +11,10 @@
 
 #define WDI_PIN       2  // watchdog feeding pin
 
-#define DELAY_TIME    10 // 30s
+#define DELAY_TIME    3 // 30s
 extern int _wait_time;
 
-#define DEBUG_OUTPUT  true
+#define DEBUG_OUTPUT  false
 
 extern uint32_t Time_stamp;
 

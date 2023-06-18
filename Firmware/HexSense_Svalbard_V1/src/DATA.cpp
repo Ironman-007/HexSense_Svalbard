@@ -44,6 +44,7 @@ void pack_a_hexsense_packet(void) {
   pack_data_into_HexSense_pkg(HexSense_byte_temp, SEQ_NUM_INDEX, SEQ_NUM_LEN);
 
   // IMU data
+  IMU_wake();
   Get_IMU_data();
   HexSense_byte_temp = (byte *) &accx;
   if (DEBUG_OUTPUT) DEBUG_info("accx = ", accx);
@@ -58,6 +59,7 @@ void pack_a_hexsense_packet(void) {
   pack_data_into_HexSense_pkg(HexSense_byte_temp, IMU_DATA_INDEX + 4 * FLOAT_SIZE, FLOAT_SIZE);
   HexSense_byte_temp = (byte *) &gyroz;
   pack_data_into_HexSense_pkg(HexSense_byte_temp, IMU_DATA_INDEX + 5 * FLOAT_SIZE, FLOAT_SIZE);
+  IMU_sleep();
 
   // Internal temperature
   TMP112_get_data();
