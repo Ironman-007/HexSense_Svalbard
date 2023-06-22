@@ -14,7 +14,9 @@ void fram_setup(void) {
 }
 
 void write_a_hexsense_packet_to_fram(uint16_t w_pointer, uint8_t * pkg, int pkg_len) {
+  fram.writeEnable(true);
   fram.write(w_pointer, pkg, pkg_len);
+  fram.writeEnable(false);
 }
 
 void read_a_hexsense_packet_from_FRAM(uint16_t r_pointer) {

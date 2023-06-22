@@ -66,6 +66,8 @@ void pack_a_hexsense_packet(void) {
   hexsense_frame.GYROX = gyrox;
   hexsense_frame.GYROY = gyroy;
   hexsense_frame.GYROZ = gyroz;
+  if (DEBUG_OUTPUT) DEBUG_info("gyrox = ", gyrox);
+
   IMU_sleep();
 
   // Internal temperature
@@ -108,7 +110,12 @@ void pack_a_hexsense_packet(void) {
 void update(void) {
   pack_a_hexsense_packet();
 
+  if (DEBUG_OUTPUT) {
+    Serial.print("FRAM_w_P = ");
+    Serial.println(FRAM_w_P);
+  }
   write_a_hexsense_packet_to_fram(FRAM_w_P, (uint8_t *) (&hexsense_frame), HexSense_frame_len);
+
   FRAM_w_P += HexSense_frame_len;
   Pkg_num  ++;
 
@@ -137,7 +144,7 @@ void update(void) {
 
     FRAM_r_P = 0;
     FRAM_w_P = 0;
-    Pkg_num = 0;
+    Pkg_num  = 0;
   }
 }
 
