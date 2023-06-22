@@ -10,6 +10,8 @@
 // {
 // #endif // __cplusplus
 
+struct HexSense_frame hexsense_frame;
+
 byte * HexSense_byte_temp;
 
 uint32_t Time_stamp = 0;
@@ -72,17 +74,17 @@ void pack_a_hexsense_packet(void) {
     hexsense_side[side_num].SIDE_get_as7341_result();
     for (side_ch_num = 0; side_ch_num < AS7341_ch_cnt; side_ch_num++) {
       HexSense_byte_temp = (byte *) &(hexsense_side[side_num].as7341_result[side_ch_num]);
-      if (DEBUG_OUTPUT) DEBUG_info("as7341 = ", hexsense_side[side_num].as7341_result[side_ch_num]);
+      // if (DEBUG_OUTPUT) DEBUG_info("as7341 = ", hexsense_side[side_num].as7341_result[side_ch_num]);
       pack_data_into_HexSense_pkg(HexSense_byte_temp, AS7341_DATA_INDEX + side_ch_num * WORD_SIZE + side_num * AS7341_ch_cnt * WORD_SIZE, WORD_SIZE);
     }
 
     hexsense_side[side_num].SIDE_get_sht40_temp_humd();
     HexSense_byte_temp = (byte *) &(hexsense_side[side_num].sht4_temp);
-    if (DEBUG_OUTPUT) DEBUG_info("SHT40 TEMP = ", hexsense_side[side_num].sht4_temp);
+    // if (DEBUG_OUTPUT) DEBUG_info("SHT40 TEMP = ", hexsense_side[side_num].sht4_temp);
     pack_data_into_HexSense_pkg(HexSense_byte_temp, SHT4x_DATA_INDEX + side_num * 2 * FLOAT_SIZE, FLOAT_SIZE);
 
     HexSense_byte_temp = (byte *) &(hexsense_side[side_num].sht4_humd);
-    if (DEBUG_OUTPUT) DEBUG_info("SHT40 HUMD = ", hexsense_side[side_num].sht4_humd);
+    // if (DEBUG_OUTPUT) DEBUG_info("SHT40 HUMD = ", hexsense_side[side_num].sht4_humd);
     pack_data_into_HexSense_pkg(HexSense_byte_temp, SHT4x_DATA_INDEX + side_num * 2 * FLOAT_SIZE + FLOAT_SIZE, FLOAT_SIZE);
   }
 

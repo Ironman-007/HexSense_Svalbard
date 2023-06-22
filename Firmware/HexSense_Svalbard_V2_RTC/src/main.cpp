@@ -24,9 +24,8 @@ void system_init(void) {
   Pins_init();
   IMU_init();
   TMP112_init();
-  rtc_init();
-  // WD_setup(WDI_PIN);
-  // fram_setup();
+  fram_setup();
+  // SD_init();
   CONN_init();
 
   for (_side_num = 0; _side_num < SIDE_cnt; _side_num ++) {
@@ -39,12 +38,12 @@ void system_init(void) {
 
   // wait for 30s before the main function
   while (_wait_time < DELAY_TIME) {
-    if (RTC_COMPARE_triggered()) {
-      RTC_Clear();
-      _wait_time ++;
-      Flash_LED_once(PIN_LED1, 50);
-    }
+    _wait_time ++;
+    Flash_LED_once(PIN_LED1, 50);
+    delay(1000);
   }
+
+  rtc_init();
 
   // calculate current orientation and choose which resistor to burn;
   // start burning resistor for 10s, and check orientation;
@@ -52,13 +51,18 @@ void system_init(void) {
 }
 
 void setup(void) {
-  // If VBUS is conencetd, means it's being chared and should not start working.
-  if (VBUS_connected()) {
-    delay(10);
+  if (DEBUG_OUTPUT) {
+    system_init();
   }
-
-  // when the +5V is removed, start working
   else {
+    // If VBUS is conencetd, means it's being chared and should not start working.
+    while (VBUS_connected()) {
+      delay(10);
+      digitalWrite(PIN_LED1, HIGH);
+    }
+
+    // when the +5V is removed, start working
+    digitalWrite(PIN_LED1, LOW);
     system_init();
   }
 }
@@ -71,8 +75,8 @@ void loop() {
   __WFE();
 
   if (RTC_COMPARE_triggered()) {
-    update();
     RTC_Clear();
+    update();
     // Store data in Flash
     // if Flash is about to be full, move all data to SD card
     Flash_LED_once(PIN_LED1, 50);
