@@ -15,9 +15,6 @@
 #include "PWR.h"
 #include "SDCARD.h"
 
-// File to store data
-File dataFile;
-
 // ================== system parameters ==================
 int _wait_time = 0;
 int _side_num  = 0;
@@ -71,8 +68,8 @@ void setup(void) {
   }
 
   // File creation can only work in loop ..., which is very interesting
-  dataFile = SD.open("hexsense.csv", FILE_WRITE);
-  dataFile.close();
+  // dataFile = SD.open("hexsense.csv", FILE_WRITE);
+  // dataFile.close();
 }
 
 void loop() {

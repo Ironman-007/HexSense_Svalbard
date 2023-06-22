@@ -26,6 +26,9 @@ int side_ch_num = 0;
 uint16_t Pkg_num    = 0;
 uint16_t Pkg_rd_num = 0;
 
+// File to store data
+File dataFile;
+
 // const char SD_File_name[] = "HexSenseLog.csv";
 
 /*
