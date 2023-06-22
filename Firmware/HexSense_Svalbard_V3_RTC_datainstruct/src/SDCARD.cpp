@@ -53,5 +53,7 @@ void SD_write_file(File file, uint8_t * data, uint32_t data_len) {
     }
   }
   file.println(dataString);
+
+  if (DEBUG_OUTPUT) Serial.println(dataString);
 }
 

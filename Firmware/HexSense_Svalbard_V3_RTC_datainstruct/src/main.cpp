@@ -71,8 +71,8 @@ void setup(void) {
   }
 
   // File creation can only work in loop ..., which is very interesting
-  // dataFile = SD.open("hexsense.csv", FILE_WRITE);
-  // dataFile.close();
+  dataFile = SD.open("hexsense.csv", FILE_WRITE);
+  dataFile.close();
 }
 
 void loop() {
