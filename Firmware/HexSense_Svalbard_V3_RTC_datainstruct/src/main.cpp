@@ -28,6 +28,7 @@ void system_init(void) {
   fram_setup();
   SD_init();
   CONN_init();
+  BR_GPIO_init();
 
   for (_side_num = 0; _side_num < SIDE_cnt; _side_num ++) {
     hexsense_side[_side_num].SIDE_select();
@@ -40,9 +41,16 @@ void system_init(void) {
   // wait for 30s before the main function
   while (_wait_time < DELAY_TIME) {
     _wait_time ++;
-    Flash_LED_once(PIN_LED1, 50);
+    // Flash_LED_once(PIN_LED1, 50);
+    Flash_LED_once(LED_indicator, 50);
     delay(1000);
   }
+
+  /*
+  Calculate angle
+  */
+  calculate_orientation();
+  Burn_resistor(Body_Orientation);
 
   rtc_init();
 
@@ -60,10 +68,12 @@ void setup(void) {
     // If VBUS is conencetd, means it's being chared and should not start working.
     while (VBUS_connected()) {
       delay(10);
-      digitalWrite(PIN_LED1, HIGH);
+      // digitalWrite(PIN_LED1, HIGH);
+      digitalWrite(LED_indicator, HIGH);
     }
     // when the +5V is removed, start working
-    digitalWrite(PIN_LED1, LOW);
+    // digitalWrite(PIN_LED1, LOW);
+    digitalWrite(LED_indicator, LOW);
     system_init();
   }
 
@@ -82,9 +92,11 @@ void loop() {
   if (RTC_COMPARE_triggered()) {
     RTC_Clear();
     update();
-    Flash_LED_once(PIN_LED1, 50);
+    // Flash_LED_once(PIN_LED1, 50);
+    Flash_LED_once(LED_indicator, 50);
   }
 }
+
 
 
 

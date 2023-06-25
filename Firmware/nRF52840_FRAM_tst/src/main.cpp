@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include <SPI.h>
 #include <Wire.h>
 #include "Adafruit_FRAM_SPI.h"
@@ -12,7 +13,7 @@ Adafruit_FRAM_SPI fram = Adafruit_FRAM_SPI(FRAM_CS);  // use hardware SPI
 uint16_t          addr = 0;
 
 void setup(void) {
-  Serial.begin(9600);
+  Serial.begin(115200);
   while (!Serial) delay(10);     // will pause Zero, Leonardo, etc until serial console opens
   
   if (fram.begin()) {

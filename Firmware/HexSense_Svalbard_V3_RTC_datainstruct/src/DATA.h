@@ -18,6 +18,8 @@ struct HexSense_frame {
   uint32_t time_stamp;
   uint8_t  Seq_num;
 
+  uint32_t bat_v;
+
   // IMU data
   float    ACCX;
   float    ACCY;

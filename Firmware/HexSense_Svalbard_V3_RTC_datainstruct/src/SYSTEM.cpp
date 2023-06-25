@@ -1,7 +1,9 @@
 #include <Arduino.h>
+#include <math.h>
 
 #include "SYSTEM.h"
 #include "SDCARD.h"
+#include "IMU.h"
 
 // #ifdef __cplusplus
 // extern "C"
@@ -10,13 +12,18 @@
 
 static int i = 0;
 
+static float orien_accx = 0.0;
+static float orien_accy = 0.0;
+
+float Body_Orientation = 0.0; // in degrees
+
 // define pins to use
-#define PINS2USE_CNT 4
+#define PINS2USE_CNT 5
 
 // When SD card is powered off, it will mess up the SPI lines.
-int     PINS2USE[PINS2USE_CNT]            = {PIN_LED1, WDI_PIN, PIN_BUTTON1, SD_EN_PIN};
-uint8_t PINS2USE_MODE[PINS2USE_CNT]       = {OUTPUT, OUTPUT, OUTPUT, OUTPUT};
-uint8_t PINS2USE_INIT_VALUE[PINS2USE_CNT] = {LOW, LOW, LOW, HIGH};
+int     PINS2USE[PINS2USE_CNT]            = {PIN_LED1, WDI_PIN, PIN_BUTTON1, SD_EN_PIN, LED_indicator};
+uint8_t PINS2USE_MODE[PINS2USE_CNT]       = {OUTPUT, OUTPUT, OUTPUT, OUTPUT, OUTPUT};
+uint8_t PINS2USE_INIT_VALUE[PINS2USE_CNT] = {LOW, LOW, LOW, HIGH, LOW};
 
 void Serial_Setup(void) {
   Serial.begin(115200);
@@ -73,6 +80,27 @@ uint32_t VBUS_connected(void) {
   return NRF_POWER->USBREGSTATUS;
 }
 
+void calculate_orientation(void) {
+  IMU_wake();
+  Get_IMU_data();
+  orien_accx = accx;
+  orien_accy = accy;
+  IMU_sleep();
+  Body_Orientation = atan2(accy, accx)*180/MATHPI;
+}
+
+void Burn_resistor(float orientation) {
+  // TODO: modify the side to be chose
+  if      (Body_Orientation >= 30  && Body_Orientation < 90)   Burn_resistor(0);
+  else if (Body_Orientation >= 90  && Body_Orientation < 150)  Burn_resistor(0);
+  else if (Body_Orientation >= 150 && Body_Orientation < 210)  Burn_resistor(0);
+  else if (Body_Orientation >= 210 && Body_Orientation < 270)  Burn_resistor(0);
+  else if (Body_Orientation >= 270 && Body_Orientation < 330)  Burn_resistor(0);
+  else if (Body_Orientation <  30  || Body_Orientation >= 330) Burn_resistor(0);
+  else                                                         Burn_resistor(0);
+}
+
 // #ifdef __cplusplus
 // }
 // #endif
+

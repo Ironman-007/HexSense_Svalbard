@@ -1789,8 +1789,8 @@
     (pin "4" (uuid 30905403-e828-499e-a975-27410c863555))
     (pin "5" (uuid 1f530d46-cdb0-44be-9cbb-50f5497a3b90))
     (pin "6" (uuid a77b4997-d477-4c0a-8201-89b78d2e56d1))
-    (pin "MP" (uuid d8688203-49e8-4259-837e-13b905bba310))
-    (pin "MP" (uuid d8688203-49e8-4259-837e-13b905bba310))
+    (pin "MP" (uuid d8688203-49e8-4259-837e-13b905bba311))
+    (pin "MP" (uuid d8688203-49e8-4259-837e-13b905bba311))
     (instances
       (project "INDICATOR"
         (path "/65265907-6721-4f79-b3a8-f708d4e7460b"

@@ -54,6 +54,8 @@ void pack_a_hexsense_packet(void) {
   hexsense_frame.Seq_num = seq_num;
   if (DEBUG_OUTPUT) DEBUG_info("seq_num = ", seq_num);
 
+  hexsense_frame.bat_v = analogRead(A2);
+
   // IMU data
   IMU_wake();
   Get_IMU_data();
