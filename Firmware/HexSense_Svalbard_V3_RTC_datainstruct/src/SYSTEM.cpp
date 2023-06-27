@@ -56,6 +56,10 @@ void WD_setup(int wdi_pin) {
   analogWrite(wdi_pin, 128);
 }
 
+void WDI_output(int wdi_pin) {
+  digitalToggle(wdi_pin);
+}
+
 // DEBUG_info templates
 void DEBUG_info(const char * info) {
   Serial.println(F(info));
@@ -87,6 +91,11 @@ void calculate_orientation(void) {
   orien_accy = accy;
   IMU_sleep();
   Body_Orientation = atan2(accy, accx)*180/MATHPI;
+
+  if (DEBUG_OUTPUT) {
+    Serial.print("Body_Orientation = ");
+    Serial.println(Body_Orientation);
+  }
 }
 
 void Burn_resistor(float orientation) {

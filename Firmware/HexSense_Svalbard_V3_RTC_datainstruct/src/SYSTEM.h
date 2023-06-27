@@ -9,7 +9,7 @@
 
 #define LED_indicator PIN_SERIAL1_TX
 #define MATHPI        3.1415  // pi
-#define WDI_PIN       2  // watchdog feeding pin
+#define WDI_PIN       2       // watchdog feeding pin
 
 #define DELAY_TIME    10 // 30s
 extern int _wait_time;
@@ -30,6 +30,8 @@ extern void Flash_LED(int LED_pin, int T_periode, int PWM_width, int times);
 extern void Flash_LED_once(int LED_pin, int length);
 
 extern void WD_setup(int wdi_pin);
+
+extern void WDI_output(int wdi_pin);
 
 extern void DEBUG_info(const char * info);
 extern void DEBUG_info(const char * info, int data);

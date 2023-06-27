@@ -23,12 +23,17 @@ void SD_init() {
   while (!SD.begin(SD_CSS_PIN)) delay(10);
   if (DEBUG_OUTPUT) Serial.println(F("card initialized."));
 
-  // File dataFile = SD.open("HexSenseLog", FILE_WRITE);
+  dataFile = SD.open("hexsense.csv", FILE_WRITE);
 
-  // if (DEBUG_OUTPUT) {
-  //   if (dataFile) Serial.println(F("dataFile created."));
-  //   else          Serial.println(F("--- dataFile not created ---"));
-  // }
+  if (DEBUG_OUTPUT) {
+    if (dataFile) {
+      Serial.println(F("dataFile created."));
+      dataFile.close();
+    }
+    else {
+      Serial.println(F("--- dataFile not created ---"));
+    }
+  }
 }
 
 // void SD_open_file(const char *  filename) {
