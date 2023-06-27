@@ -1,6 +1,7 @@
 #include <Arduino.h>
 
 #include "IMU.h"
+#include "SYSTEM.h"
 
 // #ifdef __cplusplus
 // extern "C"
@@ -17,8 +18,6 @@ float gyroz = 0.0;
 float _orientation  = 0.0;
 
 Adafruit_MPU6050 mpu;
-sensors_event_t a, g, temp;
-
 
 void IMU_sleep(void) {
   mpu.enableSleep(true);
@@ -42,22 +41,14 @@ void IMU_standby(void) {
 void IMU_init(void) {
   mpu.begin();
 
-  //setupt motion detection
-  mpu.setHighPassFilter(MPU6050_HIGHPASS_0_63_HZ);
-  mpu.setMotionDetectionThreshold(1);
-  mpu.setMotionDetectionDuration(20);
-  mpu.setInterruptPinLatch(true);	// Keep it latched.  Will turn off when reinitialized.
-  mpu.setInterruptPinPolarity(true);
-  mpu.setMotionInterrupt(true);
-
-  // Set IMU to standby mode
-  mpu.setGyroStandby(true, true, true);
-  mpu.setAccelerometerStandby(true, true, true);
-  mpu.setTemperatureStandby(true);
+  mpu.setAccelerometerRange(MPU6050_RANGE_8_G);
+  mpu.setGyroRange(MPU6050_RANGE_500_DEG);
+  mpu.setFilterBandwidth(MPU6050_BAND_21_HZ);
   IMU_sleep();
 }
 
 void Get_IMU_data(void) {
+  sensors_event_t a, g, temp;
   mpu.getEvent(&a, &g, &temp);
 
   accx  = a.acceleration.x;

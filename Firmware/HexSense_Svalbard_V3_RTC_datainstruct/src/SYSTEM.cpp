@@ -4,6 +4,7 @@
 #include "SYSTEM.h"
 #include "SDCARD.h"
 #include "IMU.h"
+#include "BR.h"
 
 // #ifdef __cplusplus
 // extern "C"
@@ -14,11 +15,16 @@ static int i = 0;
 
 static float orien_accx = 0.0;
 static float orien_accy = 0.0;
+static float orien_accz = 0.0;
 
 float Body_Orientation = 0.0; // in degrees
 
 // define pins to use
 #define PINS2USE_CNT 5
+
+#define FIRST_BURN_L  3000
+#define SECOND_BURN_L 6000
+#define STANDING_UP_TRESHOLD 9.0
 
 // When SD card is powered off, it will mess up the SPI lines.
 int     PINS2USE[PINS2USE_CNT]            = {PIN_LED1, WDI_PIN, PIN_BUTTON1, SD_EN_PIN, LED_indicator};
@@ -89,24 +95,104 @@ void calculate_orientation(void) {
   Get_IMU_data();
   orien_accx = accx;
   orien_accy = accy;
-  IMU_sleep();
+  // IMU_sleep();
+
   Body_Orientation = atan2(accy, accx)*180/MATHPI;
 
+  // Negative angle plus 2pi
+  if (Body_Orientation < 0) Body_Orientation += 360;
+
   if (DEBUG_OUTPUT) {
+    Serial.print("accy = ");
+    Serial.println(accy);
+    Serial.print("accx = ");
+    Serial.println(accx);
     Serial.print("Body_Orientation = ");
     Serial.println(Body_Orientation);
   }
 }
 
+static float get_Z_orientation() {
+  // IMU_wake();
+  Get_IMU_data();
+  orien_accz = accz;
+  // IMU_sleep();
+
+  return orien_accz;
+}
+
+static void try2burn_R(uint8_t CH_num, int first_try, int second_try) {
+  digitalWrite(LED_indicator, HIGH);
+  BR_TURN_OFF_ALL();
+  BR_BURN_R(CH_num);
+  delay(first_try);
+  BR_TURN_OFF_ALL();
+
+  if (DEBUG_OUTPUT) {
+    Serial.print("AccZ = ");
+    Serial.println(get_Z_orientation());
+  }
+
+  // 2s for the node to ba stable before checking if the second burn is necessary
+  delay(2000);
+
+  // check the orientation
+  // if didn't stand up, reburn
+  if (get_Z_orientation() < STANDING_UP_TRESHOLD) {
+    if (DEBUG_OUTPUT) {
+      Serial.println("Try to burn again");
+    }
+    BR_BURN_R(CH_num);
+    delay(second_try);
+    BR_TURN_OFF_ALL();
+  }
+
+ digitalWrite(LED_indicator, LOW);
+}
+
 void Burn_resistor(float orientation) {
-  // TODO: modify the side to be chose
-  if      (Body_Orientation >= 30  && Body_Orientation < 90)   Burn_resistor(0);
-  else if (Body_Orientation >= 90  && Body_Orientation < 150)  Burn_resistor(0);
-  else if (Body_Orientation >= 150 && Body_Orientation < 210)  Burn_resistor(0);
-  else if (Body_Orientation >= 210 && Body_Orientation < 270)  Burn_resistor(0);
-  else if (Body_Orientation >= 270 && Body_Orientation < 330)  Burn_resistor(0);
-  else if (Body_Orientation <  30  || Body_Orientation >= 330) Burn_resistor(0);
-  else                                                         Burn_resistor(0);
+  // Side 5 on the ground, burn side 2, CH #1
+  if (Body_Orientation >= 0  && Body_Orientation < 60) {
+    try2burn_R(1, FIRST_BURN_L, SECOND_BURN_L);
+    if (DEBUG_OUTPUT) {
+      Serial.println("Side 5 on the ground, burn side 2, CH #1");
+    }
+  }
+  // Side 6 on the ground, burn side 3, CH #0
+  else if (Body_Orientation >= 60  && Body_Orientation < 120) {
+    try2burn_R(0, FIRST_BURN_L, SECOND_BURN_L);
+    if (DEBUG_OUTPUT) {
+      Serial.println("Side 6 on the ground, burn side 3, CH #0");
+    }
+  }
+  // Side 1 on the ground, burn side 4, CH #5
+  else if (Body_Orientation >= 120 && Body_Orientation < 180) {
+    try2burn_R(5, FIRST_BURN_L, SECOND_BURN_L);
+    if (DEBUG_OUTPUT) {
+        Serial.println("Side 1 on the ground, burn side 4, CH #5");
+      }
+  }
+  // Side 2 on the ground, burn side 5, CH #4
+  else if (Body_Orientation >= 180 && Body_Orientation < 240) {
+    try2burn_R(4, FIRST_BURN_L, SECOND_BURN_L);
+    if (DEBUG_OUTPUT) {
+        Serial.println("Side 2 on the ground, burn side 5, CH #4");
+      }
+  }
+  // Side 3 on the ground, burn side 6, CH #3
+  else if (Body_Orientation >= 240 && Body_Orientation < 300) {
+    try2burn_R(3, FIRST_BURN_L, SECOND_BURN_L);
+    if (DEBUG_OUTPUT) {
+        Serial.println("Side 3 on the ground, burn side 6, CH #3");
+      }
+  }
+  // Side 4 on the ground, burn side 1, CH #2
+  else if (Body_Orientation >= 300 && Body_Orientation <= 360) {
+    try2burn_R(2, FIRST_BURN_L, SECOND_BURN_L);
+    if (DEBUG_OUTPUT) {
+        Serial.println("Side 4 on the ground, burn side 1, CH #2");
+      }
+  }
 }
 
 // #ifdef __cplusplus

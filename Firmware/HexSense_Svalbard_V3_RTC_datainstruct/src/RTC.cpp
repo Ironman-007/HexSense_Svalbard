@@ -17,7 +17,7 @@ void lfclk_config(void) {
 
 void rtc_config() {
   NRF_RTC0->PRESCALER   = 4095UL; // freq = 32768/4096 = 8Hz
-  NRF_RTC0->CC[0]       = 80UL;   // T_peroid = 64/8 = 8s
+  NRF_RTC0->CC[0]       = 80UL;   // T_peroid = 80/8 = 10s
   NRF_RTC0->EVTEN       = RTC_EVTEN_COMPARE0_Msk;
   NRF_RTC0->TASKS_START = 1UL;
 }

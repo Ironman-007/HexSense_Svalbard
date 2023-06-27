@@ -5,7 +5,7 @@
 #include "Adafruit_FRAM_SPI.h"
 
 // #define FRAM_ADDR_TOP 260000 // 256KB
-#define FRAM_ADDR_TOP 1000 // 256KB
+#define FRAM_ADDR_TOP 25000 // 256KB
 
 #define FRAM_CS_pin   PIN_SERIAL1_RX // RXD is the CS
 

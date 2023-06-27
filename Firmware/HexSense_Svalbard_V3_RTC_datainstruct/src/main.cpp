@@ -29,6 +29,7 @@ void system_init(void) {
   SD_init();
   CONN_init();
   BR_GPIO_init();
+  BR_TURN_OFF_ALL();
 
   WDI_output(WDI_PIN);
 
@@ -53,7 +54,7 @@ void system_init(void) {
   }
 
   calculate_orientation();
-  // Burn_resistor(Body_Orientation);
+  Burn_resistor(Body_Orientation);
 
   rtc_init();
 
@@ -79,12 +80,9 @@ void setup(void) {
     // when the +5V is removed, start working
     // digitalWrite(PIN_LED1, LOW);
     digitalWrite(LED_indicator, LOW);
+
     system_init();
   }
-
-  // File creation can only work in loop ..., which is very interesting
-  // dataFile = SD.open("hexsense.csv", FILE_WRITE);
-  // dataFile.close();
 }
 
 void loop() {
@@ -97,6 +95,10 @@ void loop() {
   if (RTC_COMPARE_triggered()) {
     RTC_Clear();
     update();
+
+    // calculate_orientation();
+    // Burn_resistor(Body_Orientation);
+
     // Flash_LED_once(PIN_LED1, 50);
     Flash_LED_once(LED_indicator, 50);
 

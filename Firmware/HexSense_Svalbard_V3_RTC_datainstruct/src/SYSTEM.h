@@ -9,15 +9,16 @@
 
 #define LED_indicator PIN_SERIAL1_TX
 #define MATHPI        3.1415  // pi
+#define G_earth       9.807
 #define WDI_PIN       2       // watchdog feeding pin
 
-#define DELAY_TIME    10 // 30s
+#define DELAY_TIME    30 // 30s
 extern int _wait_time;
 
 #define BAT_A_PIN        A2
 
-#define DEBUG_OUTPUT     true
-#define TST_WITHOUT_SIDE true
+#define DEBUG_OUTPUT     false
+#define TST_WITHOUT_SIDE false
 
 extern float Body_Orientation; // in degrees
 
