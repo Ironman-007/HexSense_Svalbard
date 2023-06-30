@@ -24,9 +24,9 @@ bool SIDE::SIDE_select(void) {
 
 void SIDE::SIDE_init() {
   this -> as7341.begin();
-  this -> as7341.setATIME(100);
+  this -> as7341.setATIME(99);
   this -> as7341.setASTEP(999);
-  this -> as7341.setGain(AS7341_GAIN_256X);
+  this -> as7341.setGain(AS7341_GAIN_2X);
   // this -> veml6030.set_address(0x40);
   // this -> veml6030.begin();
   this -> sht4.begin();
@@ -59,5 +59,5 @@ void SIDE::SIDE_get_sht40_temp_humd(void) {
 // int SIDE::SIDE_get_veml6030_lux(void){
 //   return veml6030_lux;
 // }
-SIDE hexsense_side[SIDE_cnt] = {SIDE(0), SIDE(2), SIDE(3), SIDE(4), SIDE(5), SIDE(7)};
+SIDE hexsense_side[SIDE_cnt] = {SIDE(0), SIDE(3), SIDE(2), SIDE(5), SIDE(4), SIDE(7)};
 // SIDE hexsense_side[SIDE_cnt] = {SIDE(0), SIDE(2), SIDE(3)};

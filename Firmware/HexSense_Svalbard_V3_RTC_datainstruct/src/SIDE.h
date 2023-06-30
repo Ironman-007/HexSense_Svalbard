@@ -32,6 +32,7 @@ public:
 
   // result in 415nm, 445nm, 480nm, 515nm, 555nm, 590nm, 630nm, 680nm, clear, IR
   uint16_t as7341_result[AS7341_ch_cnt] = {};
+
   float sht4_temp;
   float sht4_humd;
 };

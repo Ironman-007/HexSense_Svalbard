@@ -16,7 +16,7 @@ struct HexSense_frame hexsense_frame;
 byte * HexSense_byte_temp;
 
 uint32_t Time_stamp = 0;
-uint8_t  seq_num = 0;
+uint32_t seq_num = 0;
 
 uint8_t HexSense_pkg_rd_from_FRAM[PKG_LEN] = {0x00};
 

@@ -14,6 +14,9 @@ float accz  = 0.0;
 float gyrox = 0.0;
 float gyroy = 0.0;
 float gyroz = 0.0;
+float magx  = 0.0;
+float magy  = 0.0;
+float magz  = 0.0;
 
 float _orientation  = 0.0;
 

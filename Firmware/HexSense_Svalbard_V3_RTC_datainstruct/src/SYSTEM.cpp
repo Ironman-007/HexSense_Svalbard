@@ -15,16 +15,18 @@ static int i = 0;
 
 static float orien_accx = 0.0;
 static float orien_accy = 0.0;
-static float orien_accz = 0.0;
+static volatile float orien_accz = 0.0;
+
+volatile bool burn_resistor_check = false;
 
 float Body_Orientation = 0.0; // in degrees
 
 // define pins to use
 #define PINS2USE_CNT 5
 
-#define FIRST_BURN_L  3000
+#define FIRST_BURN_L  4000
 #define SECOND_BURN_L 6000
-#define STANDING_UP_TRESHOLD 9.0
+#define STANDING_UP_TRESHOLD 9
 
 // When SD card is powered off, it will mess up the SPI lines.
 int     PINS2USE[PINS2USE_CNT]            = {PIN_LED1, WDI_PIN, PIN_BUTTON1, SD_EN_PIN, LED_indicator};
@@ -93,8 +95,23 @@ uint32_t VBUS_connected(void) {
 void calculate_orientation(void) {
   IMU_wake();
   Get_IMU_data();
+
   orien_accx = accx;
   orien_accy = accy;
+  orien_accz = accz;
+
+  if (orien_accz < 9) {
+    burn_resistor_check = true;
+    if (DEBUG_OUTPUT) {
+      Serial.println("burn_resistor_check = true");
+    }
+  }
+  else {
+    if (DEBUG_OUTPUT) {
+      Serial.println("burn_resistor_check = false");
+    }
+    burn_resistor_check = false;
+  }
   // IMU_sleep();
 
   Body_Orientation = atan2(accy, accx)*180/MATHPI;
@@ -103,6 +120,8 @@ void calculate_orientation(void) {
   if (Body_Orientation < 0) Body_Orientation += 360;
 
   if (DEBUG_OUTPUT) {
+    Serial.print("accz = ");
+    Serial.println(accz);
     Serial.print("accy = ");
     Serial.println(accy);
     Serial.print("accx = ");
@@ -113,10 +132,10 @@ void calculate_orientation(void) {
 }
 
 static float get_Z_orientation() {
-  // IMU_wake();
+  IMU_wake();
   Get_IMU_data();
   orien_accz = accz;
-  // IMU_sleep();
+  IMU_sleep();
 
   return orien_accz;
 }
@@ -151,47 +170,62 @@ static void try2burn_R(uint8_t CH_num, int first_try, int second_try) {
 }
 
 void Burn_resistor(float orientation) {
-  // Side 5 on the ground, burn side 2, CH #1
-  if (Body_Orientation >= 0  && Body_Orientation < 60) {
-    try2burn_R(1, FIRST_BURN_L, SECOND_BURN_L);
+  // if (DEBUG_OUTPUT) {
+  //   Serial.print("get_Z_orientation() = ");
+  //   Serial.println(get_Z_orientation());
+  // }
+
+  // Burn resistor only when the node is lying on the ground;
+  // This needs to be changed for future missions;
+  // For Svalbard, the node will be turned off/on multiple times so should not
+  // reburn the resistor when turned back on.
+  if (burn_resistor_check) {
     if (DEBUG_OUTPUT) {
-      Serial.println("Side 5 on the ground, burn side 2, CH #1");
+      Serial.println("Start burning resistor");
+      delay(3000);
     }
-  }
-  // Side 6 on the ground, burn side 3, CH #0
-  else if (Body_Orientation >= 60  && Body_Orientation < 120) {
-    try2burn_R(0, FIRST_BURN_L, SECOND_BURN_L);
-    if (DEBUG_OUTPUT) {
-      Serial.println("Side 6 on the ground, burn side 3, CH #0");
+    // Side 5 on the ground, burn side 2, CH #1
+    if (Body_Orientation >= 0  && Body_Orientation < 60) {
+      try2burn_R(1, FIRST_BURN_L, SECOND_BURN_L);
+      if (DEBUG_OUTPUT) {
+        Serial.println("Side 5 on the ground, burn side 2, CH #1");
+      }
     }
-  }
-  // Side 1 on the ground, burn side 4, CH #5
-  else if (Body_Orientation >= 120 && Body_Orientation < 180) {
-    try2burn_R(5, FIRST_BURN_L, SECOND_BURN_L);
-    if (DEBUG_OUTPUT) {
-        Serial.println("Side 1 on the ground, burn side 4, CH #5");
+    // Side 6 on the ground, burn side 3, CH #0
+    else if (Body_Orientation >= 60  && Body_Orientation < 120) {
+      try2burn_R(0, FIRST_BURN_L, SECOND_BURN_L);
+      if (DEBUG_OUTPUT) {
+        Serial.println("Side 6 on the ground, burn side 3, CH #0");
       }
-  }
-  // Side 2 on the ground, burn side 5, CH #4
-  else if (Body_Orientation >= 180 && Body_Orientation < 240) {
-    try2burn_R(4, FIRST_BURN_L, SECOND_BURN_L);
-    if (DEBUG_OUTPUT) {
-        Serial.println("Side 2 on the ground, burn side 5, CH #4");
-      }
-  }
-  // Side 3 on the ground, burn side 6, CH #3
-  else if (Body_Orientation >= 240 && Body_Orientation < 300) {
-    try2burn_R(3, FIRST_BURN_L, SECOND_BURN_L);
-    if (DEBUG_OUTPUT) {
-        Serial.println("Side 3 on the ground, burn side 6, CH #3");
-      }
-  }
-  // Side 4 on the ground, burn side 1, CH #2
-  else if (Body_Orientation >= 300 && Body_Orientation <= 360) {
-    try2burn_R(2, FIRST_BURN_L, SECOND_BURN_L);
-    if (DEBUG_OUTPUT) {
-        Serial.println("Side 4 on the ground, burn side 1, CH #2");
-      }
+    }
+    // Side 1 on the ground, burn side 4, CH #5
+    else if (Body_Orientation >= 120 && Body_Orientation < 180) {
+      try2burn_R(5, FIRST_BURN_L, SECOND_BURN_L);
+      if (DEBUG_OUTPUT) {
+          Serial.println("Side 1 on the ground, burn side 4, CH #5");
+        }
+    }
+    // Side 2 on the ground, burn side 5, CH #4
+    else if (Body_Orientation >= 180 && Body_Orientation < 240) {
+      try2burn_R(4, FIRST_BURN_L, SECOND_BURN_L);
+      if (DEBUG_OUTPUT) {
+          Serial.println("Side 2 on the ground, burn side 5, CH #4");
+        }
+    }
+    // Side 3 on the ground, burn side 6, CH #3
+    else if (Body_Orientation >= 240 && Body_Orientation < 300) {
+      try2burn_R(3, FIRST_BURN_L, SECOND_BURN_L);
+      if (DEBUG_OUTPUT) {
+          Serial.println("Side 3 on the ground, burn side 6, CH #3");
+        }
+    }
+    // Side 4 on the ground, burn side 1, CH #2
+    else if (Body_Orientation >= 300 && Body_Orientation <= 360) {
+      try2burn_R(2, FIRST_BURN_L, SECOND_BURN_L);
+      if (DEBUG_OUTPUT) {
+          Serial.println("Side 4 on the ground, burn side 1, CH #2");
+        }
+    }
   }
 }
 

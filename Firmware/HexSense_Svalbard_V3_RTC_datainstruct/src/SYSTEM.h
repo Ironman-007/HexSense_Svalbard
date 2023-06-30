@@ -24,6 +24,8 @@ extern float Body_Orientation; // in degrees
 
 extern uint32_t Time_stamp;
 
+extern volatile bool burn_resistor_check;
+
 extern void Serial_Setup(void);
 
 extern void Pins_init(void);

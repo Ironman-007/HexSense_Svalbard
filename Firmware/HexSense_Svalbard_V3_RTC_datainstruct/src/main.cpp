@@ -22,7 +22,6 @@ int _side_num  = 0;
 void system_init(void) {
   if (DEBUG_OUTPUT) Serial_Setup();
 
-  Pins_init();
   IMU_init();
   TMP112_init();
   fram_setup();
@@ -54,7 +53,10 @@ void system_init(void) {
   }
 
   calculate_orientation();
-  Burn_resistor(Body_Orientation);
+
+  if (burn_resistor_check) {
+    Burn_resistor(Body_Orientation);
+  }
 
   rtc_init();
 
@@ -66,6 +68,8 @@ void system_init(void) {
 }
 
 void setup(void) {
+  Pins_init();
+
   if (DEBUG_OUTPUT) {
     system_init();
   }
@@ -73,7 +77,6 @@ void setup(void) {
   else {
     // If VBUS is conencetd, means it's being chared and should not start working.
     while (VBUS_connected()) {
-      delay(100);
       // digitalWrite(PIN_LED1, HIGH);
       digitalWrite(LED_indicator, HIGH);
     }
@@ -95,9 +98,6 @@ void loop() {
   if (RTC_COMPARE_triggered()) {
     RTC_Clear();
     update();
-
-    // calculate_orientation();
-    // Burn_resistor(Body_Orientation);
 
     // Flash_LED_once(PIN_LED1, 50);
     Flash_LED_once(LED_indicator, 50);

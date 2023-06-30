@@ -16,7 +16,7 @@
 struct HexSense_frame {
   // Frame header
   uint32_t time_stamp;
-  uint8_t  Seq_num;
+  uint32_t  Seq_num;
 
   uint32_t bat_v;
 
